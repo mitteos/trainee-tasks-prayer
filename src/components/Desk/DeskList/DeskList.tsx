@@ -1,6 +1,7 @@
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import { DeskItem } from "../DeskItem";
 import styled from "styled-components/native";
+import React from "react";
 
 const desks = [
   {id: 1, name: "To do"},
@@ -8,7 +9,7 @@ const desks = [
   {id: 3, name: "Completed"},
 ]
 
-export const DeskList = () => {
+export const DeskList: React.FC = () => {
   return (
     <Container>
       <FlatList

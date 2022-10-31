@@ -1,18 +1,29 @@
 import styled from "styled-components/native";
 import React from "react";
 import { Image } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 interface HeaderProps {
   title: string | undefined;
 }
 
 export const Header: React.FC<HeaderProps> = ({title}) => {
+
+  const navigation = useNavigation()
+  const route = useRoute()
+
+  const addClickHandler = () => {
+    navigation.navigate("Add Modal")
+  }
+
   return (
     <Container>
       <Title>{title}</Title>
-      <AddIconContainer>
-        <Image source={require("../../../assets/img/addIcon.png")} />
-      </AddIconContainer>
+      {route.name === "Home" &&
+        <AddIconContainer onPress={addClickHandler}>
+          <Image source={require("../../../assets/img/addIcon.png")} />
+        </AddIconContainer>
+      }
     </Container>
   );
 };
