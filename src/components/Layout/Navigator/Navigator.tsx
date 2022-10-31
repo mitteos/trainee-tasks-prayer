@@ -21,7 +21,7 @@ export const Navigator = () => {
           name="Home"
           component={HomeScreen}
           options={{
-            title: "My Desks"
+            title: "My Desk"
         }}/>
         </Stack.Group>
         <Stack.Group screenOptions={{presentation: "modal"}}>

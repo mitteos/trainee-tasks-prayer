@@ -55,8 +55,7 @@ export const CustomInput = <T extends FieldValues>({isDisabled, minLength, maxLe
         />
       )}
       rules={registerOptions}
-    >
-    </Controller>
+    />
   );
 };
 
