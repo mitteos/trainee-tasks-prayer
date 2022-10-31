@@ -1,8 +1,8 @@
-import { View } from "react-native"
+import { Navigator } from "./components/Layout";
 
 const App = () => {
   return (
-    <View></View>
+    <Navigator />
   );
 };
 
