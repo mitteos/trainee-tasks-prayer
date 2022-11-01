@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { HomeScreen } from "../../../screens";
-import { Header } from "../Header";
-import { AddDeskModal } from "../../Desk";
+import { HomeScreen } from "src/screens";
+import { AddDeskModal } from "src/components/Desk";
+import { Header } from "src/components/Layout";
 
 export const Navigator = () => {
 
@@ -26,7 +26,7 @@ export const Navigator = () => {
         </Stack.Group>
         <Stack.Group screenOptions={{presentation: "modal"}}>
           <Stack.Screen
-            name="Add Modal"
+            name="AddModal"
             component={AddDeskModal}
             options={{
               title: "Add Desk"

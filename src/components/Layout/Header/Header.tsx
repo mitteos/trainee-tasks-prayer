@@ -2,6 +2,8 @@ import styled from "styled-components/native";
 import React from "react";
 import { Image } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "src/components/Layout/Navigator/types";
 
 interface HeaderProps {
   title: string | undefined;
@@ -9,11 +11,11 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({title}) => {
 
-  const navigation = useNavigation()
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const route = useRoute()
 
   const addClickHandler = () => {
-    navigation.navigate("Add Modal")
+    navigation.navigate("AddModal")
   }
 
   return (

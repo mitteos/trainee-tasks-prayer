@@ -1,8 +1,8 @@
-import { Alert, Button, SafeAreaView, Text } from "react-native";
+import { Alert, SafeAreaView} from "react-native";
 import React from "react";
 import styled from "styled-components/native";
-import { CustomInput } from "../../UI";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { CustomInput } from "src/components/UI";
 
 interface AddFormFields {
   name: string;

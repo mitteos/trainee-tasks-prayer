@@ -1,7 +1,7 @@
 import { FlatList, TouchableOpacity } from "react-native";
-import { DeskItem } from "../DeskItem";
 import styled from "styled-components/native";
 import React from "react";
+import { DeskItem } from "src/components/Desk";
 
 const desks = [
   {id: 1, name: "To do"},

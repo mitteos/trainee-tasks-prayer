@@ -1,4 +1,4 @@
-import { Navigator } from "./components/Layout";
+import { Navigator } from "src/components/Layout";
 
 const App = () => {
   return (
