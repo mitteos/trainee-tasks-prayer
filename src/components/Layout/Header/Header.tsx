@@ -44,7 +44,7 @@ const Container = styled.View<{$route: string}>`
   border-bottom-style: solid;
   position: relative;
   background-color: #fff;
-  ${({$route}) => $route === "Prayer" && css`
+  ${({$route}) => ($route === "Prayer" || $route === "Authorize") && css`
     display: none;
   `};
   

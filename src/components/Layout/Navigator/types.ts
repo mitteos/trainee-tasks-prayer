@@ -4,4 +4,5 @@ export type RootStackParamList = {
   Column?: {title: string};
   Prayer?: {prayerId: number};
   UserSettings: undefined;
+  Authorize: undefined;
 };

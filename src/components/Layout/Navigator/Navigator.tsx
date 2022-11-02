@@ -5,6 +5,7 @@ import { AddDeskModal } from "src/components/Desk";
 import { Header } from "src/components/Layout";
 import { RootStackParamList } from "src/components/Layout/Navigator/types";
 import { UserSettingsModal } from "src/components/User";
+import { AuthorizeScreen } from "src/screens/AuthorizeScreen";
 
 const customTheme = {
   ...DefaultTheme,
@@ -20,12 +21,15 @@ export const Navigator = () => {
 
   return (
     <NavigationContainer theme={customTheme}>
-      <Stack.Navigator screenOptions={{
-        header: (props) => <Header title={props.options.title} />,
-        contentStyle: {
-          backgroundColor: "#fff"
+      <Stack.Navigator
+        initialRouteName="Authorize"
+        screenOptions={{
+          header: (props) => <Header title={props.options.title} />,
+          contentStyle: {
+            backgroundColor: "#fff"
+          },
         }
-      }}>
+      }>
         <Stack.Group>
           <Stack.Screen
           name="Home"
@@ -43,6 +47,10 @@ export const Navigator = () => {
           <Stack.Screen
             name="Prayer"
             component={PrayerScreen}
+          />
+          <Stack.Screen
+            name="Authorize"
+            component={AuthorizeScreen}
           />
         </Stack.Group>
         <Stack.Group screenOptions={{presentation: "modal"}}>
