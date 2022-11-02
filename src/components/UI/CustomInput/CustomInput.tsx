@@ -2,6 +2,8 @@ import styled from "styled-components/native";
 import React from "react";
 import { Control, FieldError, FieldValues, Path, UseFormRegister, Controller } from "react-hook-form";
 
+
+
 interface CustomInputProps<T extends FieldValues> {
   type?: string;
   required?: boolean;
@@ -12,7 +14,10 @@ interface CustomInputProps<T extends FieldValues> {
   minLength?: number;
   maxLength?: number;
   isDisabled?: boolean;
-  control: Control<T>
+  control: Control<T>;
+  styles: {
+    [e: string]: number | string
+  }
 }
 
 interface Option {
@@ -25,7 +30,7 @@ interface RegisterOptions {
   maxLength: 0 | Option | undefined;
 }
 
-export const CustomInput = <T extends FieldValues>({isDisabled, minLength, maxLength, type = "text", placeholder, register, name, errors, required = false, control}: CustomInputProps<T>) => {
+export const CustomInput = <T extends FieldValues>({styles, isDisabled, minLength, maxLength, type = "text", placeholder, register, name, errors, required = false, control}: CustomInputProps<T>) => {
 
   const registerOptions: RegisterOptions = {
     required: required && "Required",
@@ -52,6 +57,7 @@ export const CustomInput = <T extends FieldValues>({isDisabled, minLength, maxLe
           value={value}
           onBlur={onBlur}
           onChangeText={(e: string) => onChange(e)}
+          style={styles}
         />
       )}
       rules={registerOptions}
@@ -65,4 +71,5 @@ const Input = styled.TextInput<{$errors?: FieldError}>`
   border-color: ${({ $errors }) => $errors ? "#AC5253" : "#E5E5E5"};
   border-width: 1px;
   padding: 15px;
+  font-size: 17px;
 `

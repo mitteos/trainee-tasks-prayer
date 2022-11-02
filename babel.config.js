@@ -5,7 +5,6 @@ module.exports = {
       "module-resolver",
       {
         alias: {
-          // This needs to be mirrored in tsconfig.json
           components: "./src/components",
           buttons: "./src/components/buttons",
           src: "./src",
