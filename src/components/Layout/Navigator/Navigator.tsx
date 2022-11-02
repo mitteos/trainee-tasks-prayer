@@ -4,6 +4,7 @@ import { ColumnScreen, HomeScreen, PrayerScreen } from "src/screens";
 import { AddDeskModal } from "src/components/Desk";
 import { Header } from "src/components/Layout";
 import { RootStackParamList } from "src/components/Layout/Navigator/types";
+import { UserSettingsModal } from "src/components/User";
 
 const customTheme = {
   ...DefaultTheme,
@@ -50,6 +51,13 @@ export const Navigator = () => {
             component={AddDeskModal}
             options={{
               title: "Add Desk"
+            }}
+          />
+          <Stack.Screen
+            name="UserSettings"
+            component={UserSettingsModal}
+            options={{
+              title: "Settings",
             }}
           />
         </Stack.Group>

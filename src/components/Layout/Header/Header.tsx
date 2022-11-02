@@ -17,6 +17,9 @@ export const Header: React.FC<HeaderProps> = ({title}) => {
   const addClickHandler = () => {
     navigation.navigate("AddModal")
   }
+  const settingsClickHandler = () => {
+    navigation.navigate("UserSettings")
+  }
 
   return (
     <Container $route={route.name}>
@@ -27,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({title}) => {
         </AddIconContainer>
       }
       {route.name === "Column" &&
-        <SettingsIconContainer>
+        <SettingsIconContainer onPress={settingsClickHandler}>
           <Image source={require("../../../assets/img/settings.png")} />
         </SettingsIconContainer>
         }
