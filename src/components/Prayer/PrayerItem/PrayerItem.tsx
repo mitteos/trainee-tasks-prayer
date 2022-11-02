@@ -2,6 +2,9 @@ import styled from "styled-components/native";
 import { Checkbox } from "src/components/UI";
 import { PrayerState } from "src/components/Prayer/types";
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "src/components/Layout/Navigator/types";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 interface PrayerItemProps {
   prayerInfo: PrayerState
@@ -10,9 +13,14 @@ interface PrayerItemProps {
 export const PrayerItem: React.FC<PrayerItemProps> = ({prayerInfo}) => {
 
   const [isChecked, setIsChecked] = useState<boolean>(prayerInfo.checked)
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+
+  const navigateToPrayer = () => {
+    navigation.navigate("Prayer", {prayerId: prayerInfo.id})
+  }
 
   return (
-    <Container>
+    <Container activeOpacity={1} onPress={navigateToPrayer}>
       <PrayerInfo>
         <Indicator />
         <Checkbox isChecked={isChecked} setIsChecked={setIsChecked}/>
@@ -32,7 +40,7 @@ export const PrayerItem: React.FC<PrayerItemProps> = ({prayerInfo}) => {
   );
 };
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   padding: 22px 15px;

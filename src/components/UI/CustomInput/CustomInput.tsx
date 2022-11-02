@@ -1,8 +1,14 @@
 import styled from "styled-components/native";
 import React from "react";
-import { Control, FieldError, FieldValues, Path, UseFormRegister, Controller } from "react-hook-form";
-
-
+import {
+  Control,
+  FieldError,
+  FieldValues,
+  Path,
+  UseFormRegister,
+  Controller,
+  UseFormHandleSubmit, SubmitHandler,
+} from "react-hook-form";
 
 interface CustomInputProps<T extends FieldValues> {
   type?: string;
@@ -15,9 +21,11 @@ interface CustomInputProps<T extends FieldValues> {
   maxLength?: number;
   isDisabled?: boolean;
   control: Control<T>;
-  styles: {
+  styles?: {
     [e: string]: number | string
   }
+  onSubmitEditing: SubmitHandler<T>
+  handleSubmit: UseFormHandleSubmit<T>
 }
 
 interface Option {
@@ -30,7 +38,7 @@ interface RegisterOptions {
   maxLength: 0 | Option | undefined;
 }
 
-export const CustomInput = <T extends FieldValues>({styles, isDisabled, minLength, maxLength, type = "text", placeholder, register, name, errors, required = false, control}: CustomInputProps<T>) => {
+export const CustomInput = <T extends FieldValues>({handleSubmit, onSubmitEditing, styles, isDisabled, minLength, maxLength, type = "text", placeholder, register, name, errors, required = false, control}: CustomInputProps<T>) => {
 
   const registerOptions: RegisterOptions = {
     required: required && "Required",
@@ -58,6 +66,7 @@ export const CustomInput = <T extends FieldValues>({styles, isDisabled, minLengt
           onBlur={onBlur}
           onChangeText={(e: string) => onChange(e)}
           style={styles}
+          onSubmitEditing={handleSubmit(onSubmitEditing)}
         />
       )}
       rules={registerOptions}

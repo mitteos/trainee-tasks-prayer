@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
-import { ColumnScreen, HomeScreen } from "src/screens";
+import { ColumnScreen, HomeScreen, PrayerScreen } from "src/screens";
 import { AddDeskModal } from "src/components/Desk";
 import { Header } from "src/components/Layout";
 import { RootStackParamList } from "src/components/Layout/Navigator/types";
@@ -32,9 +32,17 @@ export const Navigator = () => {
           options={{
             title: "My Desk"
         }}/>
-          <Stack.Screen name="Column" component={ColumnScreen} options={(props) => ({
-            title: props.route.params?.title
-          })}/>
+          <Stack.Screen
+            name="Column"
+            component={ColumnScreen}
+            options={(props) => ({
+              title: props.route.params?.title
+            })}
+          />
+          <Stack.Screen
+            name="Prayer"
+            component={PrayerScreen}
+          />
         </Stack.Group>
         <Stack.Group screenOptions={{presentation: "modal"}}>
           <Stack.Screen

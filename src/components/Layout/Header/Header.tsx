@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import React from "react";
 import { Image } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -41,6 +41,10 @@ const Container = styled.View<{$route: string}>`
   border-bottom-style: solid;
   position: relative;
   background-color: #fff;
+  ${({$route}) => $route === "Prayer" && css`
+    display: none;
+  `};
+  
 `
 const Title = styled.Text`
   font-size: 17px;

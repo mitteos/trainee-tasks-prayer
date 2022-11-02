@@ -28,6 +28,8 @@ export const AddPrayerForm = () => {
         control={control}
         required={true}
         styles={InputStyles}
+        handleSubmit={handleSubmit}
+        onSubmitEditing={addPrayer}
       />
     </Container>
   );
