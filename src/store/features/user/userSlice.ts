@@ -28,7 +28,6 @@ const userSlice = createSlice({
     authorizeSuccess(state, action: PayloadAction<UserState>) {
       state.isLoading = false
       state.userInfo = action.payload
-      console.log(state.userInfo);
     },
     authorizeError(state, action: PayloadAction<string>) {
       state.isLoading = false
