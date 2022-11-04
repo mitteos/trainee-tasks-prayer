@@ -5,7 +5,6 @@ import {
   FieldError,
   FieldValues,
   Path,
-  UseFormRegister,
   Controller,
   UseFormHandleSubmit, SubmitHandler,
 } from "react-hook-form";

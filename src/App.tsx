@@ -1,8 +1,12 @@
 import { Navigator } from "src/components/Layout";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const App = () => {
   return (
-    <Navigator />
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
   );
 };
 
