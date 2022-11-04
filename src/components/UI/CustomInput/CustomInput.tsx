@@ -9,18 +9,19 @@ import {
   Controller,
   UseFormHandleSubmit, SubmitHandler,
 } from "react-hook-form";
+import { PatternState } from "src/utils/patterns";
 
 interface CustomInputProps<T extends FieldValues> {
-  type?: string;
+  secure?: boolean;
   required?: boolean;
   placeholder: string;
-  register: UseFormRegister<T>;
   name: Path<T>;
   errors: FieldError | undefined;
   minLength?: number;
   maxLength?: number;
   isDisabled?: boolean;
   control: Control<T>;
+  pattern?: PatternState;
   styles?: {
     [e: string]: number | string
   }
@@ -36,9 +37,10 @@ interface RegisterOptions {
   required: string | boolean;
   minLength: 0 | Option | undefined;
   maxLength: 0 | Option | undefined;
+  pattern?: PatternState;
 }
 
-export const CustomInput = <T extends FieldValues>({handleSubmit, onSubmitEditing, styles, isDisabled, minLength, maxLength, type = "text", placeholder, register, name, errors, required = false, control}: CustomInputProps<T>) => {
+export const CustomInput = <T extends FieldValues>({pattern, secure = false, handleSubmit, onSubmitEditing, styles, isDisabled, minLength, maxLength, placeholder, name, errors, required = false, control}: CustomInputProps<T>) => {
 
   const registerOptions: RegisterOptions = {
     required: required && "Required",
@@ -50,6 +52,7 @@ export const CustomInput = <T extends FieldValues>({handleSubmit, onSubmitEditin
       value: maxLength,
       message: `Maximum ${maxLength} character`
     },
+    pattern
   }
 
   return (
@@ -59,7 +62,7 @@ export const CustomInput = <T extends FieldValues>({handleSubmit, onSubmitEditin
       render={({field: {onChange, value, onBlur}}) => (
         <Input
           placeholder={placeholder}
-          type={type}
+          secureTextEntry={secure}
           $errors={errors}
           disabled={isDisabled}
           value={value}

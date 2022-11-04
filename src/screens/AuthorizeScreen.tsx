@@ -6,6 +6,7 @@ import { Alert, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "src/components/Layout/Navigator/types";
+import { emailPattern } from "src/utils/patterns";
 
 interface AuthorizeFields {
   email: string;
@@ -17,7 +18,7 @@ export const AuthorizeScreen = () => {
 
   const [activeTab, setActiveTab] = useState<string>("sign-in")
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
-  const {register, handleSubmit, control, formState: {errors}, reset} = useForm<AuthorizeFields>()
+  const {handleSubmit, control, formState: {errors}, reset} = useForm<AuthorizeFields>()
 
   const authorize: SubmitHandler<AuthorizeFields> = (data) => {
     Alert.alert(JSON.stringify(data))
@@ -33,7 +34,6 @@ export const AuthorizeScreen = () => {
       <Title>{activeTab === "sign-in" ? "Sign-in" : "Sign-up"}</Title>
       <CustomInput
         placeholder="Email"
-        register={register}
         name="email"
         errors={errors.email}
         control={control}
@@ -41,11 +41,11 @@ export const AuthorizeScreen = () => {
         handleSubmit={handleSubmit}
         styles={inputsStyles}
         required={true}
+        pattern={emailPattern}
       />
       {activeTab === "sign-up" &&
         <CustomInput
           placeholder="Name"
-          register={register}
           name="name"
           errors={errors.name}
           control={control}
@@ -57,7 +57,6 @@ export const AuthorizeScreen = () => {
       }
       <CustomInput
         placeholder="Password"
-        register={register}
         name="password"
         errors={errors.password}
         control={control}
@@ -65,6 +64,7 @@ export const AuthorizeScreen = () => {
         handleSubmit={handleSubmit}
         styles={inputsStyles}
         required={true}
+        secure={true}
       />
       <ButtonContainer onPress={handleSubmit(authorize)}>
         <ButtonInner>{activeTab === "sign-in" ? "Login" : "Register"}</ButtonInner>
