@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import React from "react";
+import SvgCheck from "src/assets/svgr";
 
 interface CheckboxProps {
   isChecked: boolean;
@@ -9,7 +10,7 @@ interface CheckboxProps {
 export const Checkbox: React.FC<CheckboxProps> = ({isChecked, setIsChecked}) => {
   return (
     <CheckboxContainer onPress={() => setIsChecked(!isChecked)} >
-      <CheckboxInner source={require("src/assets/img/check.png")} $isActive={isChecked}/>
+      <CheckboxInner $isActive={isChecked}/>
     </CheckboxContainer>
   );
 };
@@ -23,7 +24,7 @@ const CheckboxContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 `
-const CheckboxInner = styled.Image<{$isActive: boolean}>`
+const CheckboxInner = styled(SvgCheck)<{$isActive: boolean}>`
   transition: opacity .5s ease;
   opacity: ${({$isActive}) => $isActive ? "1" : "0"};
 `

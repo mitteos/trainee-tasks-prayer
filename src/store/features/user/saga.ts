@@ -1,7 +1,7 @@
 import {takeEvery, call, put} from "redux-saga/effects"
 import { userActions } from "./userSlice";
 import { AxiosError } from "axios";
-import { $request } from "src/utils/api";
+import { axiosInstance } from "src/utils/api";
 
 type RegisterRequest = {
   email: string;
@@ -10,13 +10,13 @@ type RegisterRequest = {
   type: string;
 }
 
-const registerRequest = async (body: RegisterRequest) => {
+const registerRequest = (body: RegisterRequest) => {
   const {email, name, password} = body
-  return $request().post("auth/sign-up", {email, name, password})
+  return axiosInstance.post("auth/sign-up", {email, name, password})
 }
-const loginRequest = async (body: RegisterRequest) => {
+const loginRequest = (body: RegisterRequest) => {
   const {email, password} = body
-  return $request().post("auth/sign-in", {email, password})
+  return axiosInstance.post("auth/sign-in", {email, password})
 }
 
 function* userRegister(body: {type: string, payload: RegisterRequest}) {

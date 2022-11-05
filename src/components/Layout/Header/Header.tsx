@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components/native";
 import React from "react";
-import { Image } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "src/components/Layout/Navigator/types";
+import { SvgAdd, SvgSettings } from "src/assets/svgr";
 
 interface HeaderProps {
   title: string | undefined;
@@ -26,12 +26,12 @@ export const Header: React.FC<HeaderProps> = ({title}) => {
       <Title>{title}</Title>
       {route.name === "Home" &&
         <AddIconContainer onPress={addClickHandler}>
-          <Image source={require("../../../assets/img/addIcon.png")} />
+          <SvgAdd />
         </AddIconContainer>
       }
       {route.name === "Column" &&
         <SettingsIconContainer onPress={settingsClickHandler}>
-          <Image source={require("../../../assets/img/settings.png")} />
+          <SvgSettings />
         </SettingsIconContainer>
         }
     </Container>

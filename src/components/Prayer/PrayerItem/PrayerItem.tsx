@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "src/components/Layout/Navigator/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SvgPrayer, SvgUser } from "src/assets/svgr";
 
 interface PrayerItemProps {
   prayerInfo: PrayerState
@@ -28,11 +29,11 @@ export const PrayerItem: React.FC<PrayerItemProps> = ({prayerInfo}) => {
       </PrayerInfo>
       <PrayerStats>
         <StatsUsers>
-          <StatsImage source={require("src/assets/img/user.png")} />
+          <StatsUsersImage />
           <StatsText>3</StatsText>
         </StatsUsers>
         <StatsPrayers>
-          <StatsImage source={require("src/assets/img/prayer.png")} />
+          <StatsPrayersImage />
           <StatsText>120</StatsText>
         </StatsPrayers>
       </PrayerStats>
@@ -78,7 +79,10 @@ const StatsPrayers = styled.View`
 const StatsUsers = styled(StatsPrayers)`
   margin-right: 15px;
 `
-const StatsImage = styled.Image`
+const StatsUsersImage = styled(SvgUser)`
+  margin-right: 4px;
+`
+const StatsPrayersImage = styled(SvgPrayer)`
   margin-right: 4px;
 `
 const StatsText = styled.Text`

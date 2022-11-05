@@ -1,9 +1,10 @@
-import { Alert, Image, ScrollView, TouchableOpacity } from "react-native";
+import { Alert, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { CommentItem } from "src/components/Prayer";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CustomInput } from "src/components/UI";
+import { SvgAdd, SvgBack, SvgComment, SvgPrayer } from "src/assets/svgr";
 
 const comments = [
   {id: 1, author: "Anna Barber", body: "Hey, Hey!", date: 2},
@@ -20,7 +21,7 @@ interface CommentFormFields {
 export const PrayerScreen = () => {
 
   const navigation = useNavigation()
-  const {register, control, formState: {errors}, handleSubmit} = useForm<CommentFormFields>()
+  const {control, formState: {errors}, handleSubmit} = useForm<CommentFormFields>()
 
   const addComment: SubmitHandler<CommentFormFields> = (data) => {
     Alert.alert(JSON.stringify(data))
@@ -31,10 +32,10 @@ export const PrayerScreen = () => {
       <PrayerHeader>
         <HeaderRow>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image source={require("src/assets/img/backIcon.png")} />
+            <SvgBack />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => Alert.alert("Prayed")}>
-            <Image source={require("src/assets/img/prayerLight.png")} />
+            <SvgPrayer color="#fff"/>
           </TouchableOpacity>
         </HeaderRow>
         <PrayerName>Prayer item two which is for my family to love God whole heartedly.</PrayerName>
@@ -68,7 +69,7 @@ export const PrayerScreen = () => {
       <MembersRow>
         <MemberItem source={require("src/assets/img/member.png")} />
         <MemberAddContainer>
-          <Image source={require("src/assets/img/addLight.png")} />
+          <SvgAdd color="#fff"/>
         </MemberAddContainer>
       </MembersRow>
       <ListTitle>Comments</ListTitle>
@@ -76,10 +77,9 @@ export const PrayerScreen = () => {
         <CommentItem key={comment.id}/>
       )}
       <AddCommentContainer>
-        <AddCommentIcon source={require("src/assets/img/comment.png")} />
+        <AddCommentIcon />
         <CustomInput
           placeholder="Add a comment..."
-          register={register}
           name="body"
           errors={errors.body}
           control={control}
@@ -196,7 +196,7 @@ const AddCommentContainer = styled.View`
   flex-direction: row;
   align-items: center;
 `
-const AddCommentIcon = styled.Image`
+const AddCommentIcon = styled(SvgComment)`
   margin-right: 12px;
 `
 const InputStyles = {

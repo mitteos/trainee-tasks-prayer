@@ -1,21 +1,22 @@
 import styled from "styled-components/native";
+import { View } from "react-native";
 
 export const CommentItem = () => {
   return (
-    <CommentContainer>
-      <CommentIcon source={require("src/assets/img/member.png")} />
-      <CommentBody>
-        <CommentHeader>
-          <CommentAuthor>Anna Barber</CommentAuthor>
-          <CommentDate>2 days ago</CommentDate>
-        </CommentHeader>
-        <CommentText>Hey, Hey!</CommentText>
-      </CommentBody>
-    </CommentContainer>
+    <Container>
+      <Icon source={require("src/assets/img/member.png")} />
+      <View>
+        <Header>
+          <Author>Anna Barber</Author>
+          <Date>2 days ago</Date>
+        </Header>
+        <Text>Hey, Hey!</Text>
+      </View>
+    </Container>
   );
 };
 
-const CommentContainer = styled.View`
+const Container = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 17px 15px;
@@ -23,33 +24,30 @@ const CommentContainer = styled.View`
   border-top-width: 1px;
   border-top-style: solid;
 `
-const CommentIcon = styled.Image`
+const Icon = styled.Image`
   margin-right: 12px;
   width: 40px;
   height: 40px;
   border-radius: 40px;
 `
-const CommentBody = styled.View`
-
-`
-const CommentHeader = styled.View`
+const Header = styled.View`
   flex-direction: row;
   align-items: flex-end;
   margin-bottom: 2px;
 `
-const CommentAuthor = styled.Text`
+const Author = styled.Text`
   font-weight: bold;
   font-size: 17px;
   line-height: 20px;
   color: #514D47;
   margin-right: 6px;
 `
-const CommentDate = styled.Text`
+const Date = styled.Text`
   font-size: 13px;
   line-height: 16px;
   color: #9C9C9C;
 `
-const CommentText = styled.Text`
+const Text = styled.Text`
   font-size: 17px;
   line-height: 20px;
   color: #514D47;
