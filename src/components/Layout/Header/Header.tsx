@@ -14,10 +14,10 @@ export const Header: React.FC<HeaderProps> = ({title}) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const route = useRoute()
 
-  const addClickHandler = () => {
+  const handleAddButtonClick = () => {
     navigation.navigate("AddModal")
   }
-  const settingsClickHandler = () => {
+  const handleSettingsClick = () => {
     navigation.navigate("UserSettings")
   }
 
@@ -25,12 +25,12 @@ export const Header: React.FC<HeaderProps> = ({title}) => {
     <Container $route={route.name}>
       <Title>{title}</Title>
       {route.name === "Home" &&
-        <AddIconContainer onPress={addClickHandler}>
+        <AddIconContainer onPress={handleAddButtonClick}>
           <SvgAdd />
         </AddIconContainer>
       }
       {route.name === "Column" &&
-        <SettingsIconContainer onPress={settingsClickHandler}>
+        <SettingsIconContainer onPress={handleSettingsClick}>
           <SvgSettings />
         </SettingsIconContainer>
         }

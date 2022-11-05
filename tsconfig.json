@@ -4,13 +4,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-<<<<<<< Updated upstream
-      "src/*": ["src/*"]
-=======
       "src/*": [
         "src/*"
       ]
->>>>>>> Stashed changes
     },
     "types": [
       "@types/styled-components-react-native"

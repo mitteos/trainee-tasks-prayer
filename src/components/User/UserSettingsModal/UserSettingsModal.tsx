@@ -11,7 +11,7 @@ export const UserSettingsModal = () => {
   const dispatch = useAppDispatch()
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
-  const logoutClickHandler = () => {
+  const logout = () => {
     dispatch(userActions.logout())
     navigation.navigate("Authorize")
   }
@@ -20,9 +20,9 @@ export const UserSettingsModal = () => {
     <Container>
       <Avatar source={require("src/assets/img/userIcon.png")} />
       <Username>{userInfo.name}</Username>
-      <LogoutContainer onPress={logoutClickHandler}>
-        <LogoutInner>Logout</LogoutInner>
-      </LogoutContainer>
+      <LogoutButton onPress={logout}>
+        <LogoutButtonText>Logout</LogoutButtonText>
+      </LogoutButton>
     </Container>
   );
 };
@@ -44,11 +44,11 @@ const Username = styled.Text`
   font-weight: bold;
   margin: 10px 0 25px 0;
 `
-const LogoutContainer = styled.TouchableOpacity`
+const LogoutButton = styled.TouchableOpacity`
   background-color: #AC5253;
   border-radius: 20px;
 `
-const LogoutInner = styled.Text`
+const LogoutButtonText = styled.Text`
   color: #fff;
   font-size: 16px;
   padding: 10px 45px;

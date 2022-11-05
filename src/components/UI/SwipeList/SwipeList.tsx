@@ -11,7 +11,7 @@ interface SwipeListProps {
 
 export const SwipeList: React.FC<SwipeListProps> = ({items}) => {
 
-  const deleteHandler = (id: number) => {
+  const handleDelete = (id: number) => {
     Alert.alert("Delete", `prayer id ${id}`)
   }
 
@@ -22,7 +22,7 @@ export const SwipeList: React.FC<SwipeListProps> = ({items}) => {
         <PrayerItem prayerInfo={item} />
       }
       renderHiddenItem={ ({item}) => (
-        <DeleteContainer onPress={() => deleteHandler(item.id)}>
+        <DeleteContainer onPress={() => handleDelete(item.id)}>
           <DeleteInner>Delete</DeleteInner>
         </DeleteContainer>
       )}
