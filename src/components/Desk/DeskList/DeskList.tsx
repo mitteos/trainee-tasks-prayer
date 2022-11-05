@@ -4,7 +4,7 @@ import React from "react";
 import { DeskItem } from "src/components/Desk";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "src/components/Layout/Navigator/types";
+import { RootStackParamList } from "src/navigation/types";
 
 const desks = [
   {id: 1, name: "To do"},

@@ -1,4 +1,4 @@
-import { Tabs } from "../components/Layout";
+import { Tabs } from "src/navigation";
 
 export const ColumnScreen = () => {
   return (

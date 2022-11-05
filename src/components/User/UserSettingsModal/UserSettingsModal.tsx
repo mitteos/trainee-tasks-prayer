@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "src/hooks";
 import { userActions } from "src/store/features/user";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "src/components/Layout/Navigator/types";
+import { RootStackParamList } from "src/navigation/types";
 
 export const UserSettingsModal = () => {
 
@@ -13,13 +13,12 @@ export const UserSettingsModal = () => {
 
   const logout = () => {
     dispatch(userActions.logout())
-    navigation.navigate("Authorize")
   }
 
   return (
     <Container>
       <Avatar source={require("src/assets/img/userIcon.png")} />
-      <Username>{userInfo.name}</Username>
+      <Username>{userInfo?.name}</Username>
       <LogoutButton onPress={logout}>
         <LogoutButtonText>Logout</LogoutButtonText>
       </LogoutButton>

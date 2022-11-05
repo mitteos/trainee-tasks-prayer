@@ -8,7 +8,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const {user: {userInfo}} = store.getState()
-  if(userInfo.token) {
+  if(userInfo?.token) {
     config.headers!.Authorization = `Bearer ${userInfo.token}`
   }
   return config

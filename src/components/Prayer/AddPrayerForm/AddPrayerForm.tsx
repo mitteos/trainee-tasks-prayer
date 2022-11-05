@@ -1,7 +1,8 @@
-import { Alert, Image } from "react-native";
+import { Alert } from "react-native";
 import styled from "styled-components/native";
 import { CustomInput } from "src/components/UI";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { SvgAdd } from "src/assets/svgr";
 
 interface PrayerFormFields {
   title: string;
@@ -9,7 +10,7 @@ interface PrayerFormFields {
 
 export const AddPrayerForm = () => {
 
-  const {register, handleSubmit, control, formState: {errors}} = useForm<PrayerFormFields>()
+  const {handleSubmit, control, formState: {errors}} = useForm<PrayerFormFields>()
 
   const addPrayer: SubmitHandler<PrayerFormFields> = (data) => {
     Alert.alert("Submit", JSON.stringify(data))
@@ -17,12 +18,11 @@ export const AddPrayerForm = () => {
 
   return (
     <Container>
-      <AddButtonContainer onPress={handleSubmit(addPrayer)}>
-        <Image source={require("src/assets/img/addFormIcon.png")} />
-      </AddButtonContainer>
+      <AddButton onPress={handleSubmit(addPrayer)}>
+        <SvgAdd />
+      </AddButton>
       <CustomInput
         placeholder="Add a prayer..."
-        register={register}
         name="title"
         errors={errors.title}
         control={control}
@@ -42,9 +42,13 @@ const Container = styled.View`
 const InputStyles = {
   paddingLeft: 50
 }
-const AddButtonContainer = styled.TouchableOpacity`
+const AddButton = styled.TouchableOpacity`
   position: absolute;
   z-index: 1;
   top: 19px;
   left: 15px;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
 `

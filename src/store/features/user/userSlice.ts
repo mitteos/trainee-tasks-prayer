@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserState } from "./types";
 
 interface InitialState {
-  userInfo: UserState;
+  userInfo: UserState | null;
   error: string;
   isLoading: boolean;
 }
 
 const initialState: InitialState = {
-  userInfo: {} as UserState,
+  userInfo: null,
   error: "",
   isLoading: false
 }
@@ -34,7 +34,7 @@ const userSlice = createSlice({
       state.error = action.payload
     },
     logout(state) {
-      state.userInfo = {} as UserState
+      state.userInfo = null
     }
   }
 })

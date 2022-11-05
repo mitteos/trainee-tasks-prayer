@@ -3,9 +3,9 @@ import { Checkbox } from "src/components/UI";
 import { PrayerState } from "src/components/Prayer/types";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "src/components/Layout/Navigator/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { SvgPrayer, SvgUser } from "src/assets/svgr";
+import { RootStackParamList } from "src/navigation/types";
 
 interface PrayerItemProps {
   prayerInfo: PrayerState

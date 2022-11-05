@@ -1,6 +1,6 @@
-import { Navigator } from "src/components/Layout";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import { Navigator } from "./navigation";
 
 const App = () => {
   return (

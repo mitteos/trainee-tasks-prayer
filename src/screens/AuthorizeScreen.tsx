@@ -1,11 +1,8 @@
 import styled from "styled-components/native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CustomInput, Spinner } from "src/components/UI";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Text, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "src/components/Layout/Navigator/types";
 import { emailPattern } from "src/utils/patterns";
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { userActions } from "src/store/features/user";
@@ -19,9 +16,8 @@ interface AuthorizeFields {
 export const AuthorizeScreen = () => {
 
   const [activeTab, setActiveTab] = useState<string>("sign-in")
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const {handleSubmit, control, formState: {errors}, reset} = useForm<AuthorizeFields>()
-  const {isLoading, userInfo, error} = useAppSelector(state => state.user)
+  const {isLoading, error} = useAppSelector(state => state.user)
   const dispatch = useAppDispatch()
 
   const authorize: SubmitHandler<AuthorizeFields> = (fieldsValues) => {
@@ -33,13 +29,6 @@ export const AuthorizeScreen = () => {
     setActiveTab(activeTab === "sign-in" ? "sign-up" : "sign-in")
     reset()
   }
-
-  useEffect(() => {
-    if(userInfo.token) {
-      reset()
-      navigation.navigate("Home")
-    }
-  }, [userInfo])
 
   return (
     <Container>

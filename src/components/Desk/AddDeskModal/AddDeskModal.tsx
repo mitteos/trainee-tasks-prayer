@@ -10,9 +10,9 @@ interface AddFormFields {
 
 export const AddDeskModal: React.FC = () => {
 
-  const {register, handleSubmit, control, formState: {errors}} = useForm<AddFormFields>()
+  const {handleSubmit, control, formState: {errors}} = useForm<AddFormFields>()
 
-  const addDeskHandler: SubmitHandler<AddFormFields> = (data) => {
+  const handleAddDesk: SubmitHandler<AddFormFields> = (data) => {
     Alert.alert(JSON.stringify(data))
   }
 
@@ -21,13 +21,14 @@ export const AddDeskModal: React.FC = () => {
       <SafeAreaView>
         <CustomInput
           placeholder="Name..."
-          register={register}
           name="name"
           errors={errors.name}
           control={control}
           required={true}
+          handleSubmit={handleSubmit}
+          onSubmitEditing={handleAddDesk}
         />
-        <SubmitButton onPress={handleSubmit(addDeskHandler)}>
+        <SubmitButton onPress={handleSubmit(handleAddDesk)}>
           <SubmitButtonText>Add</SubmitButtonText>
         </SubmitButton>
       </SafeAreaView>
