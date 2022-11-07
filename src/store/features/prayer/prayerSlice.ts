@@ -31,7 +31,6 @@ const prayerSlice = createSlice({
     addPrayerSuccess(state, action: PayloadAction<AddPrayerResponse>) {
       state.isLoading = false
       state.prayers?.push({...action.payload, columnId: action.payload.column.id})
-      console.log(state.prayers);
     },
     removePrayer(state, action) {
       state.isLoading = true
