@@ -1,16 +1,26 @@
 import styled from "styled-components/native";
 import { View } from "react-native";
+import { CommentState } from "src/store/features/comments/types";
+import React from "react";
+import { useDate } from "src/hooks";
 
-export const CommentItem = () => {
+interface CommentItemProps {
+  commentInfo: CommentState
+}
+
+export const CommentItem: React.FC<CommentItemProps> = ({commentInfo}) => {
+
+  const commentDate = useDate(commentInfo.created)
+
   return (
     <Container>
       <Icon source={require("src/assets/img/member.png")} />
       <View>
         <Header>
           <Author>Anna Barber</Author>
-          <Date>2 days ago</Date>
+          <Date>{commentDate}</Date>
         </Header>
-        <Text>Hey, Hey!</Text>
+        <Text>{commentInfo.body}</Text>
       </View>
     </Container>
   );

@@ -3,17 +3,11 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { CommentItem } from "src/components/Prayer";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { CustomInput } from "src/components/UI";
+import { CustomInput, Spinner } from "src/components/UI";
 import { SvgAdd, SvgBack, SvgComment, SvgPrayer } from "src/assets/svgr";
-import { useAppSelector } from "../hooks";
-
-const comments = [
-  {id: 1, author: "Anna Barber", body: "Hey, Hey!", date: 2},
-  {id: 2, author: "Anna Barber", body: "Hey, Hey!", date: 2},
-  {id: 3, author: "Anna Barber", body: "Hey, Hey!", date: 2},
-  {id: 4, author: "Anna Barber", body: "Hey, Hey!", date: 2},
-  {id: 5, author: "Anna Barber", body: "Hey, Hey!", date: 2},
-]
+import { useAppDispatch, useAppSelector } from "src/hooks";
+import { useEffect } from "react";
+import { commentActions } from "src/store/features/comments";
 
 interface CommentFormFields {
   body: string;
@@ -26,17 +20,35 @@ type PropList = {
 export const PrayerScreen = () => {
 
   const navigation = useNavigation()
-  const {control, formState: {errors}, handleSubmit} = useForm<CommentFormFields>()
+  const {control, formState: {errors}, handleSubmit, reset} = useForm<CommentFormFields>()
   const route = useRoute<RouteProp<PropList>>()
   const {prayers} = useAppSelector(state => state.prayer)
-  const prayerInfo = prayers?.find(prayer => prayer.id === route.params.prayerId)
+  const {comments, isLoading} = useAppSelector(state => state.comment)
+  const dispatch = useAppDispatch()
 
-  const addComment: SubmitHandler<CommentFormFields> = (data) => {
-    Alert.alert(JSON.stringify(data))
+  const prayerInfo = prayers?.find(prayer => prayer.id === route.params.prayerId)
+  const prayerComments = comments?.filter(com => com.prayerId === prayerInfo?.id)
+
+  const addComment: SubmitHandler<CommentFormFields> = (fieldsValues) => {
+    const {body} = fieldsValues
+    const comment = {
+      body,
+      prayerId: prayerInfo?.id,
+      created: `${new Date()}`
+    }
+    dispatch(commentActions.add(comment))
+    reset()
   }
+
+  useEffect(() => {
+    if(!comments) {
+      dispatch(commentActions.getAll())
+    }
+  }, [])
 
   return (
     <ScrollView>
+      {isLoading && <Spinner />}
       <PrayerHeader>
         <HeaderRow>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -81,11 +93,13 @@ export const PrayerScreen = () => {
         </MemberAddContainer>
       </MembersRow>
       <ListTitle>Comments</ListTitle>
-      {comments.map(comment =>
-        <CommentItem key={comment.id}/>
+      {prayerComments?.map(comment =>
+        <CommentItem key={comment.id} commentInfo={comment}/>
       )}
       <AddCommentContainer>
-        <AddCommentIcon />
+        <TouchableOpacity onPress={handleSubmit(addComment)}>
+          <AddCommentIcon />
+        </TouchableOpacity>
         <CustomInput
           placeholder="Add a comment..."
           name="body"
