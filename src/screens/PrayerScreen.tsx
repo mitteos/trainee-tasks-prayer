@@ -1,10 +1,11 @@
 import { Alert, ScrollView, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { CommentItem } from "src/components/Prayer";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CustomInput } from "src/components/UI";
 import { SvgAdd, SvgBack, SvgComment, SvgPrayer } from "src/assets/svgr";
+import { useAppSelector } from "../hooks";
 
 const comments = [
   {id: 1, author: "Anna Barber", body: "Hey, Hey!", date: 2},
@@ -18,10 +19,17 @@ interface CommentFormFields {
   body: string;
 }
 
+type PropList = {
+  Prayer: {prayerId: number}
+}
+
 export const PrayerScreen = () => {
 
   const navigation = useNavigation()
   const {control, formState: {errors}, handleSubmit} = useForm<CommentFormFields>()
+  const route = useRoute<RouteProp<PropList>>()
+  const {prayers} = useAppSelector(state => state.prayer)
+  const prayerInfo = prayers?.find(prayer => prayer.id === route.params.prayerId)
 
   const addComment: SubmitHandler<CommentFormFields> = (data) => {
     Alert.alert(JSON.stringify(data))
@@ -38,7 +46,7 @@ export const PrayerScreen = () => {
             <SvgPrayer color="#fff"/>
           </TouchableOpacity>
         </HeaderRow>
-        <PrayerName>Prayer item two which is for my family to love God whole heartedly.</PrayerName>
+        <PrayerName>{prayerInfo?.title}</PrayerName>
       </PrayerHeader>
       <LastPrayedContainer>
         <LastPrayedIndicator />

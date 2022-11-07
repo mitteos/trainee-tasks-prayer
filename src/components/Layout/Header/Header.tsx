@@ -2,8 +2,8 @@ import styled, { css } from "styled-components/native";
 import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "src/components/Layout/Navigator/types";
 import { SvgAdd, SvgSettings } from "src/assets/svgr";
+import { RootStackParamList } from "src/navigation/types";
 
 interface HeaderProps {
   title: string | undefined;

@@ -1,23 +1,27 @@
 import { PrayerItem } from "src/components/Prayer";
 import { SwipeListView } from "react-native-swipe-list-view";
 import React from "react";
-import { PrayerState } from "src/components/Prayer/types";
 import styled from "styled-components/native";
-import { Alert } from "react-native";
+import { PrayerState } from "src/store/features/prayer/types";
+import { useAppDispatch } from "src/hooks";
+import { prayerActions } from "src/store/features/prayer";
 
 interface SwipeListProps {
-  items: PrayerState[]
+  items?: PrayerState[]
 }
 
 export const SwipeList: React.FC<SwipeListProps> = ({items}) => {
 
+  const dispatch = useAppDispatch()
+
   const handleDelete = (id: number) => {
-    Alert.alert("Delete", `prayer id ${id}`)
+    dispatch(prayerActions.removePrayer({prayerId: id}))
   }
 
   return (
     <SwipeListView
       data={items}
+      nestedScrollEnabled={true}
       renderItem={ ({item}) =>
         <PrayerItem prayerInfo={item} />
       }

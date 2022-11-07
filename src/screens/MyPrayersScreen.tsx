@@ -1,18 +1,28 @@
 import { AddPrayerForm, PrayerList } from "src/components/Prayer";
-import { View } from "react-native";
+import { useAppSelector } from "src/hooks";
+import { Spinner } from "src/components/UI";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import styled from "styled-components/native";
 
-const prayers = [
-  {id: 1, title: "test1", checked: false},
-  {id: 2, title: "test2", checked: true},
-  {id: 3, title: "test3", checked: false},
-  {id: 4, title: "test4", checked: true},
-]
+type ParamList = {
+  Column: {columnId: number}
+}
 
 export const MyPrayersScreen = () => {
+
+  const {prayers, isLoading} = useAppSelector(state => state.prayer)
+  const route = useRoute<RouteProp<ParamList>>()
+  const sortedPrayers = prayers?.filter(prayer => prayer.columnId === route.params.columnId)
+
   return (
-    <View>
+    <Container>
+      {isLoading && <Spinner />}
       <AddPrayerForm />
-      <PrayerList prayers={prayers} />
-    </View>
+      <PrayerList prayers={sortedPrayers}/>
+    </Container>
   );
 };
+
+const Container = styled.View`
+  flex: 1;
+`

@@ -1,17 +1,25 @@
-import { View } from "react-native";
 import { PrayerList } from "src/components/Prayer";
+import { useAppSelector } from "../hooks";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import styled from "styled-components/native";
 
-const prayers = [
-  {id: 1, title: "test1", checked: false},
-  {id: 2, title: "test2", checked: true},
-  {id: 3, title: "test3", checked: false},
-  {id: 4, title: "test4", checked: true},
-]
+type ParamList = {
+  Column: {columnId: number}
+}
 
 export const SubscribePrayersScreen = () => {
+
+  const {prayers} = useAppSelector(state => state.prayer)
+  const route = useRoute<RouteProp<ParamList>>()
+  const sortedPrayers = prayers?.filter(prayer => prayer.columnId === route.params.columnId)
+
   return (
-    <View>
-      <PrayerList prayers={prayers} />
-    </View>
+    <Container>
+      <PrayerList prayers={sortedPrayers}/>
+    </Container>
   );
 };
+
+const Container = styled.View`
+  flex: 1;
+`

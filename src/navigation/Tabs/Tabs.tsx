@@ -1,10 +1,18 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { MyPrayersScreen, SubscribePrayersScreen } from "src/screens";
 import styled from "styled-components/native";
+import { useAppSelector } from "src/hooks";
+import React from "react";
 
-export const Tabs = () => {
+interface TabsProps {
+  columnId?: number
+}
+
+export const Tabs: React.FC<TabsProps> = ({columnId}) => {
 
   const Tab = createMaterialTopTabNavigator();
+  const {prayers} = useAppSelector(state => state.prayer)
+  const sortedPrayers = prayers?.filter(prayer => prayer.columnId === columnId)
 
   return (
     <Tab.Navigator screenOptions={{
@@ -27,14 +35,24 @@ export const Tabs = () => {
         alignItems: "center"
       },
     }}>
-      <Tab.Screen name="My Prayers" component={MyPrayersScreen} options={{title: "My prayers"}}/>
-      <Tab.Screen name="Subscribe Prayers" component={SubscribePrayersScreen} options={{
-        title: "Subscribed",
-        tabBarIcon: () => (
-        <NotificationContainer>
-          <NotificationCount>5</NotificationCount>
-        </NotificationContainer>),
-      }}/>
+      <Tab.Screen
+        name="My Prayers"
+        component={MyPrayersScreen}
+        options={{title: "My prayers"}}
+        initialParams={{columnId}}
+      />
+      <Tab.Screen
+        name="Subscribe Prayers"
+        component={SubscribePrayersScreen}
+        options={{
+          title: "Subscribed",
+          tabBarIcon: () => (
+          <NotificationContainer>
+            <NotificationCount>{sortedPrayers?.length}</NotificationCount>
+          </NotificationContainer>),
+        }}
+        initialParams={{columnId}}
+      />
     </Tab.Navigator>
   );
 };

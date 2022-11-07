@@ -14,8 +14,8 @@ export const DeskList: React.FC = () => {
   const dispatch = useAppDispatch()
   const {columns} = useAppSelector(state => state.column)
 
-  const handleColumnClick = (name: string) => {
-    navigation.navigate("Column", {title: name})
+  const handleColumnClick = (name: string, columnId: number) => {
+    navigation.navigate("Column", {title: name, columnId})
   }
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const DeskList: React.FC = () => {
       <FlatList
         data={columns}
         renderItem={({item}) =>
-          <TouchableOpacity onPress={() => handleColumnClick(item.title)}>
+          <TouchableOpacity onPress={() => handleColumnClick(item.title, item.id)}>
             <DeskItem name={item.title} />
           </TouchableOpacity>
         }

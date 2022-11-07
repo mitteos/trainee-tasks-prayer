@@ -37,7 +37,7 @@ function* addColumn(body: {type: string, payload: AddColumnPayload}) {
     if(e instanceof AxiosError) {
       yield put(columnActions.setError(e.response?.data.message))
     }
-    return put(columnActions.setError("Unknown error"))
+    yield put(columnActions.setError("Unknown error"))
   }
 }
 

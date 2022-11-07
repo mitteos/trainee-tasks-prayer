@@ -1,11 +1,13 @@
 import styled from "styled-components/native";
 import { Checkbox } from "src/components/UI";
-import { PrayerState } from "src/components/Prayer/types";
-import React, { useState } from "react";
+import React  from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { SvgPrayer, SvgUser } from "src/assets/svgr";
 import { RootStackParamList } from "src/navigation/types";
+import { PrayerState } from "src/store/features/prayer/types";
+import { useAppDispatch } from "src/hooks";
+import { prayerActions } from "src/store/features/prayer";
 
 interface PrayerItemProps {
   prayerInfo: PrayerState
@@ -13,8 +15,16 @@ interface PrayerItemProps {
 
 export const PrayerItem: React.FC<PrayerItemProps> = ({prayerInfo}) => {
 
-  const [isChecked, setIsChecked] = useState<boolean>(prayerInfo.checked)
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+  const dispatch = useAppDispatch()
+  const prayerName = prayerInfo.title.split(" ").length > 3
+    ? prayerInfo.title.split(" ").slice(0, 3).join(" ") + "..."
+    : prayerInfo.title
+
+  const handleCheckboxClick = () => {
+    const {id, checked, title, description, columnId} = prayerInfo
+    dispatch(prayerActions.changeChecked({id, title, description, columnId, checked: !checked}))
+  }
 
   const navigateToPrayer = () => {
     navigation.navigate("Prayer", {prayerId: prayerInfo.id})
@@ -24,8 +34,8 @@ export const PrayerItem: React.FC<PrayerItemProps> = ({prayerInfo}) => {
     <Container activeOpacity={1} onPress={navigateToPrayer}>
       <PrayerInfo>
         <Indicator />
-        <Checkbox isChecked={isChecked} setIsChecked={setIsChecked}/>
-        <Name $isChecked={isChecked}>{prayerInfo.title}</Name>
+        <Checkbox isChecked={prayerInfo.checked} onPress={handleCheckboxClick}/>
+        <Name $isChecked={prayerInfo.checked}>{prayerName}</Name>
       </PrayerInfo>
       <PrayerStats>
         <StatsUsers>

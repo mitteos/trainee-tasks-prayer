@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import { PrayerState } from "src/components/Prayer/types";
 import { SwipeList } from "src/components/UI";
+import { PrayerState } from "src/store/features/prayer/types";
 
 interface PrayerListProps {
-  prayers: PrayerState[]
+  prayers?: PrayerState[]
 }
 
 export const PrayerList: React.FC<PrayerListProps> = ({prayers}) => {
@@ -12,19 +12,31 @@ export const PrayerList: React.FC<PrayerListProps> = ({prayers}) => {
   const [isShowAnswer, setIsShowAnswer] = useState<boolean>(false)
 
   return (
-    <Container>
-      <SwipeList items={prayers.filter(prayer => !prayer.checked)} />
-      <AnsweredButton onPress={() => setIsShowAnswer(!isShowAnswer)}>
+    <Container
+      data={[]}
+      renderItem={null}
+      nestedScrollEnabled={true}
+      ListHeaderComponent={() =>
+      <>
+        <SwipeList items={prayers?.filter(prayer => !prayer.checked)} />
+        <AnsweredButton onPress={() => setIsShowAnswer(!isShowAnswer)}>
         <AnswerText>{isShowAnswer ? "Hide" : "Show"} Answered Prayers</AnswerText>
-      </AnsweredButton>
-      {isShowAnswer &&
-        <SwipeList items={prayers.filter(prayer => prayer.checked)} />
+        </AnsweredButton>
+      </>
       }
-    </Container>
+      ListFooterComponent={() =>
+        <>
+          {isShowAnswer &&
+              <SwipeList items={prayers?.filter(prayer => prayer.checked)} />
+          }
+        </>
+    }
+    />
   );
 };
 
-const Container = styled.View`
+const Container = styled.FlatList`
+  padding-bottom: 30px;
 `
 const AnsweredButton = styled.TouchableOpacity`
   background: #BFB393;
