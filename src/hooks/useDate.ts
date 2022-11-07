@@ -6,9 +6,9 @@ export const useDate = (lastDate: string) => {
   if(minutesDiff < 60) {
     return `${minutesDiff} minutes ago`
   }
-  const hoursDiff = minutesDiff / 60
+  const hoursDiff = Math.floor(minutesDiff / 60)
   if(hoursDiff > 23) {
-    return `${hoursDiff / 24} days ago`
+    return `${Math.floor(hoursDiff / 24)} days ago`
   }
   return `${hoursDiff} hours ago`
 }
