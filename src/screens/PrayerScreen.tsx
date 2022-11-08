@@ -1,4 +1,4 @@
-import { Alert, ScrollView, TouchableOpacity } from "react-native";
+import {Alert, SafeAreaView, ScrollView, TouchableOpacity} from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { CommentItem } from "src/components/Prayer";
@@ -47,70 +47,72 @@ export const PrayerScreen = () => {
   }, [])
 
   return (
+    <SafeAreaView>
     <ScrollView>
       {isLoading && <Spinner />}
-      <PrayerHeader>
-        <HeaderRow>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <SvgBack />
+        <PrayerHeader>
+          <HeaderRow>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <SvgBack />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Alert.alert("Prayed")}>
+              <SvgPrayer color="#fff"/>
+            </TouchableOpacity>
+          </HeaderRow>
+          <PrayerName>{prayerInfo?.title}</PrayerName>
+        </PrayerHeader>
+        <LastPrayedContainer>
+          <LastPrayedIndicator />
+          <LastPrayedText>Last prayed 8 min ago</LastPrayedText>
+        </LastPrayedContainer>
+        <InfoRow>
+          <InfoItem>
+            <InfoTitleDate>July 25 2017</InfoTitleDate>
+            <InfoSubtitle>Date Added</InfoSubtitle>
+            <InfoText>Opened for 4 days</InfoText>
+          </InfoItem>
+          <InfoItem>
+            <InfoTitle>123</InfoTitle>
+            <InfoSubtitle>Times Prayed Total</InfoSubtitle>
+          </InfoItem>
+        </InfoRow>
+        <InfoRow>
+          <InfoItem>
+            <InfoTitle>63</InfoTitle>
+            <InfoSubtitle>Times Prayed by Me</InfoSubtitle>
+          </InfoItem>
+          <InfoItem>
+            <InfoTitle>60</InfoTitle>
+            <InfoSubtitle>Times Prayed by Others</InfoSubtitle>
+          </InfoItem>
+        </InfoRow>
+        <ListTitle>Members</ListTitle>
+        <MembersRow>
+          <MemberItem source={require("src/assets/img/member.png")} />
+          <MemberAddContainer>
+            <SvgAdd color="#fff"/>
+          </MemberAddContainer>
+        </MembersRow>
+        <ListTitle>Comments</ListTitle>
+        {prayerComments?.map(comment =>
+          <CommentItem key={comment.id} commentInfo={comment}/>
+        )}
+        <AddCommentContainer>
+          <TouchableOpacity onPress={handleSubmit(addComment)}>
+            <AddCommentIcon />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => Alert.alert("Prayed")}>
-            <SvgPrayer color="#fff"/>
-          </TouchableOpacity>
-        </HeaderRow>
-        <PrayerName>{prayerInfo?.title}</PrayerName>
-      </PrayerHeader>
-      <LastPrayedContainer>
-        <LastPrayedIndicator />
-        <LastPrayedText>Last prayed 8 min ago</LastPrayedText>
-      </LastPrayedContainer>
-      <InfoRow>
-        <InfoItem>
-          <InfoTitleDate>July 25 2017</InfoTitleDate>
-          <InfoSubtitle>Date Added</InfoSubtitle>
-          <InfoText>Opened for 4 days</InfoText>
-        </InfoItem>
-        <InfoItem>
-          <InfoTitle>123</InfoTitle>
-          <InfoSubtitle>Times Prayed Total</InfoSubtitle>
-        </InfoItem>
-      </InfoRow>
-      <InfoRow>
-        <InfoItem>
-          <InfoTitle>63</InfoTitle>
-          <InfoSubtitle>Times Prayed by Me</InfoSubtitle>
-        </InfoItem>
-        <InfoItem>
-          <InfoTitle>60</InfoTitle>
-          <InfoSubtitle>Times Prayed by Others</InfoSubtitle>
-        </InfoItem>
-      </InfoRow>
-      <ListTitle>Members</ListTitle>
-      <MembersRow>
-        <MemberItem source={require("src/assets/img/member.png")} />
-        <MemberAddContainer>
-          <SvgAdd color="#fff"/>
-        </MemberAddContainer>
-      </MembersRow>
-      <ListTitle>Comments</ListTitle>
-      {prayerComments?.map(comment =>
-        <CommentItem key={comment.id} commentInfo={comment}/>
-      )}
-      <AddCommentContainer>
-        <TouchableOpacity onPress={handleSubmit(addComment)}>
-          <AddCommentIcon />
-        </TouchableOpacity>
-        <CustomInput
-          placeholder="Add a comment..."
-          name="body"
-          errors={errors.body}
-          control={control}
-          styles={InputStyles}
-          handleSubmit={handleSubmit}
-          onSubmitEditing={addComment}
-        />
-      </AddCommentContainer>
-    </ScrollView>
+          <CustomInput
+            placeholder="Add a comment..."
+            name="body"
+            errors={errors.body}
+            control={control}
+            styles={InputStyles}
+            handleSubmit={handleSubmit}
+            onSubmitEditing={addComment}
+          />
+        </AddCommentContainer>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

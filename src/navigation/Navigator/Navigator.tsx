@@ -1,9 +1,7 @@
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
-import { ColumnScreen, HomeScreen, PrayerScreen } from "src/screens";
 import { Header } from "src/components/Layout";
-import { AuthorizeScreen } from "src/screens/AuthorizeScreen";
 import { AuthStack, Modals, PublicStack, Stack } from "..";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "src/hooks";
 
 const customTheme = {
   ...DefaultTheme,
