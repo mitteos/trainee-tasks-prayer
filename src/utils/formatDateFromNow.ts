@@ -1,4 +1,4 @@
-export const useDate = (lastDate: string) => {
+export const formatDateFromNow = (lastDate: string) => {
   const now = new Date()
   const last = new Date(lastDate)
   const timeDiff = Math.abs(now.getTime() - last.getTime())

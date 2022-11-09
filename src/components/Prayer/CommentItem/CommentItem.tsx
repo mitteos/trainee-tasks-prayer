@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { View } from "react-native";
 import { CommentState } from "src/store/features/comments/types";
 import React from "react";
-import {useDate} from "src/utils/useDate";
+import {formatDateFromNow} from "src/utils/formatDateFromNow";
 
 interface CommentItemProps {
   commentInfo: CommentState
@@ -10,7 +10,7 @@ interface CommentItemProps {
 
 export const CommentItem: React.FC<CommentItemProps> = ({commentInfo}) => {
 
-  const commentDate = useDate(commentInfo.created)
+  const commentDate = formatDateFromNow(commentInfo.created)
 
   return (
     <Container>
