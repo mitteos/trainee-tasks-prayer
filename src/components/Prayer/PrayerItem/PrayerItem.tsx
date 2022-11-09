@@ -17,9 +17,6 @@ export const PrayerItem: React.FC<PrayerItemProps> = ({prayerInfo}) => {
 
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   const dispatch = useAppDispatch()
-  const prayerName = prayerInfo.title.split(" ").length > 3
-    ? prayerInfo.title.split(" ").slice(0, 3).join(" ") + "..."
-    : prayerInfo.title
 
   const handleCheckboxClick = () => {
     const {id, checked, title, description, columnId} = prayerInfo
@@ -35,7 +32,11 @@ export const PrayerItem: React.FC<PrayerItemProps> = ({prayerInfo}) => {
       <PrayerInfo>
         <Indicator />
         <Checkbox isChecked={prayerInfo.checked} onPress={handleCheckboxClick}/>
-        <Name $isChecked={prayerInfo.checked}>{prayerName}</Name>
+        <Name
+          $isChecked={prayerInfo.checked}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >{prayerInfo.title}</Name>
       </PrayerInfo>
       <PrayerStats>
         <StatsUsers>

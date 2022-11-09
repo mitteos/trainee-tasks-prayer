@@ -3,6 +3,7 @@ import { useAppSelector } from "src/hooks";
 import { Spinner } from "src/components/UI";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import styled from "styled-components/native";
+import {prayerSelectors} from "src/store/features/prayer"
 
 type ParamList = {
   Column: {columnId: number}
@@ -10,9 +11,9 @@ type ParamList = {
 
 export const MyPrayersScreen = () => {
 
-  const {prayers, isLoading} = useAppSelector(state => state.prayer)
+  const {isLoading} = useAppSelector(state => state.prayer)
   const route = useRoute<RouteProp<ParamList>>()
-  const sortedPrayers = prayers?.filter(prayer => prayer.columnId === route.params.columnId)
+  const sortedPrayers = useAppSelector(prayerSelectors.selectPrayersByColumnId(route.params.columnId))
 
   return (
     <Container>

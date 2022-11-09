@@ -7,7 +7,8 @@ import { CustomInput, Spinner } from "src/components/UI";
 import { SvgAdd, SvgBack, SvgComment, SvgPrayer } from "src/assets/svgr";
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { useEffect } from "react";
-import { commentActions } from "src/store/features/comments";
+import { commentActions, commentSelectors } from "src/store/features/comments";
+import { prayerSelectors } from "src/store/features/prayer";
 
 interface CommentFormFields {
   body: string;
@@ -22,12 +23,10 @@ export const PrayerScreen = () => {
   const navigation = useNavigation()
   const {control, formState: {errors}, handleSubmit, reset} = useForm<CommentFormFields>()
   const route = useRoute<RouteProp<PropList>>()
-  const {prayers} = useAppSelector(state => state.prayer)
-  const {comments, isLoading} = useAppSelector(state => state.comment)
   const dispatch = useAppDispatch()
-
-  const prayerInfo = prayers?.find(prayer => prayer.id === route.params.prayerId)
-  const prayerComments = comments?.filter(com => com.prayerId === prayerInfo?.id)
+  const {comments, isLoading} = useAppSelector(state => state.comment)
+  const prayerInfo = useAppSelector(prayerSelectors.selectPrayerById(route.params.prayerId))
+  const prayerComments = useAppSelector(commentSelectors.selectCommentsByPrayerId(prayerInfo?.id))
 
   const addComment: SubmitHandler<CommentFormFields> = (fieldsValues) => {
     const {body} = fieldsValues

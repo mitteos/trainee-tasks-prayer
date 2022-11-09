@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { View } from "react-native";
 import { CommentState } from "src/store/features/comments/types";
 import React from "react";
-import { useDate } from "src/hooks";
+import {useDate} from "src/utils/useDate";
 
 interface CommentItemProps {
   commentInfo: CommentState

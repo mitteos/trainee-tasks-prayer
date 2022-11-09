@@ -3,6 +3,7 @@ import { MyPrayersScreen, SubscribePrayersScreen } from "src/screens";
 import styled from "styled-components/native";
 import { useAppSelector } from "src/hooks";
 import React from "react";
+import { prayerSelectors } from "src/store/features/prayer";
 
 interface TabsProps {
   columnId?: number
@@ -11,8 +12,8 @@ interface TabsProps {
 export const Tabs: React.FC<TabsProps> = ({columnId}) => {
 
   const Tab = createMaterialTopTabNavigator();
-  const {prayers} = useAppSelector(state => state.prayer)
-  const sortedPrayers = prayers?.filter(prayer => prayer.columnId === columnId)
+  const sortedPrayers = useAppSelector(prayerSelectors.selectPrayersByColumnId(columnId))
+
 
   return (
     <Tab.Navigator screenOptions={{
