@@ -12,5 +12,5 @@
       "@types/styled-components-react-native"
     ]
   },
-  "include": ["src/components", "custom.d.ts"]
+  "include": ["src", "custom.d.ts"]
 }

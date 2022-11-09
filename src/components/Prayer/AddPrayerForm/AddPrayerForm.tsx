@@ -1,19 +1,29 @@
-import { Alert } from "react-native";
 import styled from "styled-components/native";
 import { CustomInput } from "src/components/UI";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { SvgAdd } from "src/assets/svgr";
+import { useAppDispatch } from "src/hooks";
+import { prayerActions } from "src/store/features/prayer";
+import { RouteProp, useRoute } from "@react-navigation/native";
 
 interface PrayerFormFields {
   title: string;
 }
 
+type PropList = {
+  Column: {columnId: number}
+}
+
 export const AddPrayerForm = () => {
 
-  const {handleSubmit, control, formState: {errors}} = useForm<PrayerFormFields>()
+  const {handleSubmit, control, formState: {errors}, reset} = useForm<PrayerFormFields>()
+  const dispatch = useAppDispatch()
+  const route = useRoute<RouteProp<PropList>>()
 
   const addPrayer: SubmitHandler<PrayerFormFields> = (data) => {
-    Alert.alert("Submit", JSON.stringify(data))
+    const {title} = data
+    dispatch(prayerActions.addPrayer({title, description: "", checked: false, columnId: route.params.columnId}))
+    reset()
   }
 
   return (

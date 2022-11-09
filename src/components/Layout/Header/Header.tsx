@@ -2,8 +2,8 @@ import styled, { css } from "styled-components/native";
 import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "src/components/Layout/Navigator/types";
 import { SvgAdd, SvgSettings } from "src/assets/svgr";
+import { RootStackParamList } from "src/navigation/types";
 
 interface HeaderProps {
   title: string | undefined;
@@ -38,7 +38,7 @@ export const Header: React.FC<HeaderProps> = ({title}) => {
   );
 };
 
-const Container = styled.View<{$route: string}>`
+const Container = styled.SafeAreaView<{$route: string}>`
   border-bottom-width: ${({$route}) => $route === "Column" ? "0" : "1px"} ;
   border-bottom-color: #E5E5E5;
   border-bottom-style: solid;
@@ -59,7 +59,7 @@ const Title = styled.Text`
 `
 const AddIconContainer = styled.TouchableOpacity`
   position: absolute;
-  top: 24px;
+  bottom: 24px;
   right: 15px;
   width: 16px;
   height: 16px;
@@ -67,5 +67,5 @@ const AddIconContainer = styled.TouchableOpacity`
 const SettingsIconContainer = styled(AddIconContainer)`
   width: 24px;
   height: 24px;
-  top: 20px;
+  bottom: 20px;
 `

@@ -1,13 +1,25 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga"
 import {all} from "redux-saga/effects"
-import { userReducer, userWatcher } from "./features";
+import {
+  columnReducer,
+  columnWatcher,
+  commentReducer,
+  commentWatcher,
+  prayerReducer,
+  prayerWatcher,
+  userReducer,
+  userWatcher,
+} from "./features";
 
 const rootReducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  column: columnReducer,
+  prayer: prayerReducer,
+  comment: commentReducer
 })
 function* rootWatcher() {
-  yield all([userWatcher()])
+  yield all([userWatcher(), columnWatcher(), prayerWatcher(), commentWatcher()])
 }
 
 const sagaMiddleware = createSagaMiddleware()

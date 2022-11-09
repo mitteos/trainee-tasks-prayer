@@ -4,12 +4,12 @@ import SvgCheck from "src/assets/svgr";
 
 interface CheckboxProps {
   isChecked: boolean;
-  setIsChecked: (e: boolean) => void
+  onPress: () => void
 }
 
-export const Checkbox: React.FC<CheckboxProps> = ({isChecked, setIsChecked}) => {
+export const Checkbox: React.FC<CheckboxProps> = ({isChecked, onPress}) => {
   return (
-    <CheckboxContainer onPress={() => setIsChecked(!isChecked)} >
+    <CheckboxContainer onPress={onPress} >
       <CheckboxInner $isActive={isChecked}/>
     </CheckboxContainer>
   );
